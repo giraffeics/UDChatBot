@@ -43,6 +43,68 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Copy Assignment Operator & Constructor
+ChatBot::ChatBot(ChatBot& other)
+{
+    std::cout << "ChatBot Copy Constructor\n";
+
+    this->_currentNode = other._currentNode;
+    this->_rootNode = other._rootNode;
+
+    // this method of moving ownership prevents two instances
+    // from ever holding the same handle
+    auto temp = other._image;
+    other._image = nullptr;
+    this->_image = temp;
+}
+
+ChatBot& ChatBot::operator=(ChatBot& other)
+{
+    std::cout << "ChatBot Copy Assignment Operator\n"; 
+
+    this->_currentNode = other._currentNode;
+    this->_rootNode = other._rootNode;
+
+    // this method of moving ownership prevents two instances
+    // from ever holding the same handle
+    auto temp = other._image;
+    other._image = nullptr;
+    this->_image = temp;
+
+    return *this;
+}
+
+// Move Assignment Operator & Constructor
+ChatBot::ChatBot(ChatBot&& other)
+{
+    std::cout << "ChatBot Move Constructor\n";
+
+    this->_currentNode = other._currentNode;
+    this->_rootNode = other._rootNode;
+
+    // this method of moving ownership prevents two instances
+    // from ever holding the same handle
+    auto temp = other._image;
+    other._image = nullptr;
+    this->_image = temp;
+}
+
+ChatBot& ChatBot::operator=(ChatBot&& other)
+{
+    std::cout << "ChatBot Move Assignment Operator\n";
+
+    this->_currentNode = other._currentNode;
+    this->_rootNode = other._rootNode;
+
+    // this method of moving ownership prevents two instances
+    // from ever holding the same handle
+    auto temp = other._image;
+    other._image = nullptr;
+    this->_image = temp;
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
