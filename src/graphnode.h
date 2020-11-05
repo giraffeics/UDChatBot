@@ -49,12 +49,12 @@ public:
     //// STUDENT CODE
     ////
 
-    void MoveChatbotHere(ChatBot *chatbot);
+    void MoveChatbotHere(ChatBot *chatbot, ChatLogic* logic);
 
     ////
     //// EOF STUDENT CODE
 
-    void MoveChatbotToNewNode(GraphNode *newNode);
+    void MoveChatbotToNewNode(GraphNode *newNode, ChatLogic* logic);
 };
 
 #endif /* GRAPHNODE_H_ */

@@ -13,7 +13,6 @@ ChatBot::ChatBot()
 {
     // invalidate data handles
     _image = nullptr;
-    _chatLogic = nullptr;
     _rootNode = nullptr;
 }
 
@@ -23,7 +22,6 @@ ChatBot::ChatBot(std::string filename)
     std::cout << "ChatBot Constructor" << std::endl;
     
     // invalidate data handles
-    _chatLogic = nullptr;
     _rootNode = nullptr;
 
     // load image into heap memory
@@ -48,7 +46,7 @@ ChatBot::~ChatBot()
 ////
 //// EOF STUDENT CODE
 
-void ChatBot::ReceiveMessageFromUser(std::string message)
+void ChatBot::ReceiveMessageFromUser(std::string message, ChatLogic* logic)
 {
     // loop over all edges and keywords and compute Levenshtein distance to query
     typedef std::pair<GraphEdge *, int> EdgeDist;
@@ -79,10 +77,10 @@ void ChatBot::ReceiveMessageFromUser(std::string message)
     }
 
     // tell current node to move chatbot to new node
-    _currentNode->MoveChatbotToNewNode(newNode);
+    _currentNode->MoveChatbotToNewNode(newNode, logic);
 }
 
-void ChatBot::SetCurrentNode(GraphNode *node)
+void ChatBot::SetCurrentNode(GraphNode *node, ChatLogic* logic)
 {
     // update pointer to current node
     _currentNode = node;
@@ -94,7 +92,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::string answer = answers.at(dis(generator));
 
     // send selected node answer to user
-    _chatLogic->SendMessageToUser(answer);
+    logic->SendMessageToUser(answer);
 }
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
