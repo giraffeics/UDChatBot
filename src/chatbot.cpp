@@ -50,6 +50,11 @@ ChatBot::ChatBot(ChatBot& other)
 
     this->_currentNode = other._currentNode;
     this->_rootNode = other._rootNode;
+    this->_chatLogic = other._chatLogic;
+
+    // update ChatLogic's handle
+    if(this->_chatLogic != nullptr)
+        this->_chatLogic->SetChatbotHandle(this);
 
     // this method of moving ownership prevents two instances
     // from ever holding the same handle
@@ -64,6 +69,11 @@ ChatBot& ChatBot::operator=(ChatBot& other)
 
     this->_currentNode = other._currentNode;
     this->_rootNode = other._rootNode;
+    this->_chatLogic = other._chatLogic;
+
+    // update ChatLogic's handle
+    if(this->_chatLogic != nullptr)
+        this->_chatLogic->SetChatbotHandle(this);
 
     // this method of moving ownership prevents two instances
     // from ever holding the same handle
@@ -81,6 +91,11 @@ ChatBot::ChatBot(ChatBot&& other)
 
     this->_currentNode = other._currentNode;
     this->_rootNode = other._rootNode;
+    this->_chatLogic = other._chatLogic;
+
+    // update ChatLogic's handle
+    if(this->_chatLogic != nullptr)
+        this->_chatLogic->SetChatbotHandle(this);
 
     // this method of moving ownership prevents two instances
     // from ever holding the same handle
@@ -95,6 +110,11 @@ ChatBot& ChatBot::operator=(ChatBot&& other)
 
     this->_currentNode = other._currentNode;
     this->_rootNode = other._rootNode;
+    this->_chatLogic = other._chatLogic;
+
+    // update ChatLogic's handle
+    if(this->_chatLogic != nullptr)
+        this->_chatLogic->SetChatbotHandle(this);
 
     // this method of moving ownership prevents two instances
     // from ever holding the same handle
@@ -108,7 +128,7 @@ ChatBot& ChatBot::operator=(ChatBot&& other)
 ////
 //// EOF STUDENT CODE
 
-void ChatBot::ReceiveMessageFromUser(std::string message, ChatLogic* logic)
+void ChatBot::ReceiveMessageFromUser(std::string message)
 {
     // loop over all edges and keywords and compute Levenshtein distance to query
     typedef std::pair<GraphEdge *, int> EdgeDist;
@@ -139,10 +159,10 @@ void ChatBot::ReceiveMessageFromUser(std::string message, ChatLogic* logic)
     }
 
     // tell current node to move chatbot to new node
-    _currentNode->MoveChatbotToNewNode(newNode, logic);
+    _currentNode->MoveChatbotToNewNode(newNode);
 }
 
-void ChatBot::SetCurrentNode(GraphNode *node, ChatLogic* logic)
+void ChatBot::SetCurrentNode(GraphNode *node)
 {
     // update pointer to current node
     _currentNode = node;
@@ -154,7 +174,7 @@ void ChatBot::SetCurrentNode(GraphNode *node, ChatLogic* logic)
     std::string answer = answers.at(dis(generator));
 
     // send selected node answer to user
-    logic->SendMessageToUser(answer);
+    _chatLogic->SendMessageToUser(answer);
 }
 
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)

@@ -16,6 +16,7 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     GraphNode *_rootNode;
+    ChatLogic *_chatLogic;
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
@@ -41,12 +42,14 @@ public:
     //// EOF STUDENT CODE
 
     // getters / setters
-    void SetCurrentNode(GraphNode *node, ChatLogic* logic);
+    void SetCurrentNode(GraphNode *node);
     void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
+    void SetChatLogic(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
+
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication
-    void ReceiveMessageFromUser(std::string message, ChatLogic* logic);
+    void ReceiveMessageFromUser(std::string message);
 };
 
 #endif /* CHATBOT_H_ */

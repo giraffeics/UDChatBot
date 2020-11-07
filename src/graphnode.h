@@ -21,7 +21,9 @@ private:
 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-    ChatBot *_chatBot;
+
+    // chatbot instance (owned)
+    ChatBot _chatBot;
 
     ////
     //// EOF STUDENT CODE
@@ -50,12 +52,12 @@ public:
     //// STUDENT CODE
     ////
 
-    void MoveChatbotHere(ChatBot *chatbot, ChatLogic* logic);
+    void MoveChatbotHere(ChatBot&& chatbot);
 
     ////
     //// EOF STUDENT CODE
 
-    void MoveChatbotToNewNode(GraphNode *newNode, ChatLogic* logic);
+    void MoveChatbotToNewNode(GraphNode *newNode);
 };
 
 #endif /* GRAPHNODE_H_ */
