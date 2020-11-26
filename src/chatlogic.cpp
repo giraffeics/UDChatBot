@@ -150,7 +150,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
                             // store reference in child node and parent node
                             (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            std::unique_ptr<GraphEdge> edgeUniquePtr(edge);
+                            (*parentNode)->AddEdgeToChildNode(std::move(edgeUniquePtr));
                         }
 
                         ////
