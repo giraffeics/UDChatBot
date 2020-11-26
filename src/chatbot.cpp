@@ -56,11 +56,8 @@ ChatBot::ChatBot(ChatBot& other)
     if(this->_chatLogic != nullptr)
         this->_chatLogic->SetChatbotHandle(this);
 
-    // this method of moving ownership prevents two instances
-    // from ever holding the same handle
-    auto temp = other._image;
-    other._image = nullptr;
-    this->_image = temp;
+    // make a deep copy of the image
+    this->_image = new wxBitmap(*(other._image));
 }
 
 ChatBot& ChatBot::operator=(ChatBot& other)
@@ -75,11 +72,8 @@ ChatBot& ChatBot::operator=(ChatBot& other)
     if(this->_chatLogic != nullptr)
         this->_chatLogic->SetChatbotHandle(this);
 
-    // this method of moving ownership prevents two instances
-    // from ever holding the same handle
-    auto temp = other._image;
-    other._image = nullptr;
-    this->_image = temp;
+    // make a deep copy of the image
+    this->_image = new wxBitmap(*(other._image));
 
     return *this;
 }
